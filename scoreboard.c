@@ -1,221 +1,174 @@
-/***************************************************************************************
- *    Justin Reynoso
- *    0939095
- *    Controls printing and updating the scoreboard of the boggle game
- *
- ***************************************************************************************/
-
-
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 #include "scoreboard.h"
 
-
 /*
  * Finds and returns a pointer to the User in the linked list beginning with
- * head which has the name nameToFind. If such a User is not in the Linked
+ * head which has the name name_to_find. If such a User is not in the Linked
  * List, it will return NULL. Helper function to increment_score.
  */
-
-User *findUserWithName(User *headNode, char *nameToFind){
-
-	if ( headNode == NULL ){
-		return headNode;
+User* find_user_with_name(User* head, char* name_to_find) {
+	if (head == NULL) {
+		return head;
 	}
-	User *currentNode = headNode;
-	while ( currentNode != NULL ){
-		if ( strcmp( currentNode -> name, nameToFind ) == 0 ){
-			return currentNode;
+	User *current = head ;
+	while (current != NULL) {
+		if (strcmp(current->name, name_to_find) == 0) {
+			return current;
 		}
-		currentNode = ( currentNode ) -> next;
+		current = (current)->next;
 	}
 	return NULL;
 }
 
-
-/* 
- * Frees every element of the linked list 
- */
-
-void freeAll(User *headNode){
-
-	if ( headNode -> next == NULL ){
-		free( headNode );
+/* frees every element of the linked list */
+void free_all(User* head) {
+	if (head -> next == NULL) {
+		free(head);
 	}
 	else {
-		User *currentNode = headNode -> next;
-		User *previous = headNode;
-		while ( currentNode != NULL ){
-			free( previous );
-			previous = currentNode;
-			currentNode = ( currentNode ) -> next;
+		User *current = head->next;
+		User *previous = head;
+		while (current != NULL) {
+			free(previous);
+			previous = current;
+			current = (current)->next;
 		}
 	}
 }
 
-
-/* 
- * Cycles through the linked list untill the index desired has been reached, 
- * Or until its confirmed that the index is outside the length of the linked list
- */
-
-User *getUserAtIndex(User *headNode, int index){
-
-	if ( headNode == NULL ){
+User* get_user_at_index(User* head, int index) {
+	if (head == NULL) {
 		return NULL;
 	}
-	User *currentNode = headNode;
+	User *current = head;
 	int count = 0;
-	while ( currentNode != NULL ){
-		if ( count == index + 1 ){
-			return currentNode;
+	while (current != NULL) {
+		if (count == index + 1) {
+			return current;
 		}
-		currentNode = ( currentNode) -> next;
+		current = (current)->next;
 		count++;
 	}
 	return NULL;
 }
 
-
-/* Searches through the linkedlist looking for a node that matches nameToFind
- * returns count if name is found, return -1 if name can't be found
- */
-
-int getIndexOfUserWithName(User *headNode, char *nameToFind){
-
-	if ( headNode == NULL && headNode -> name != nameToFind ){
+int get_index_of_user_with_name(User* head, char* name_to_find) {
+	if (head == NULL && head->name != name_to_find) {
 		return -1;
 	}
-	User *currentNode = headNode;
+	User *current = head;
 	int count = 0;
-	while ( currentNode != NULL ){
-		if ( strcmp ( currentNode->name,  nameToFind ) ){
+	while (current != NULL) {
+		if (strcmp(current->name, name_to_find)) {
 			return count;
 		}
-		currentNode = ( currentNode ) -> next;
+		current = (current)->next;
 		count++;
 	}
 	return -1;
 }
 
-
 /*
- * Finds whether or not an existing user is already in the list. If they are,
+ * Finds whether or not a an existing user is already in the list. Of they are,
  * returns 1. If not, returns 0.
  */
-
-int userIsInList(User *headNode, char *nameToFind){
-	User *currentNode = headNode;
-    while ( currentNode != NULL ){
-		if ( strcmp( currentNode -> name, nameToFind ) == 0 ){
+int user_is_in_list(User* head, char* name_to_find) {
+	User *current = head;
+	while (current != NULL) {
+		if (strcmp(current->name, name_to_find) == 0) {
 			return 1;
 		}
-		currentNode = ( currentNode ) -> next;
+		current = (current)->next;
 	}
 	return 0;
 }
 
-
-// Finds the length of the linkedlist
-
-int getLength(User *headNode){
-	if ( headNode == NULL ){
+int get_length(User* head) {
+	if (head == NULL) {
 		return 0;
 	}
-	User *currentNode = headNode;
+	User *current = head;
 	int count = 0;
-	while ( currentNode != NULL ){
+	while (current != NULL) {
 		count++;
-		if ( currentNode -> next == NULL ){
+		if (current->next == NULL) {
 			return count;
 		}
-		currentNode = ( currentNode ) -> next;
+		current = (current)->next;
 	}
 	return 0;
 }
-
 
 /*
  * Helper function. Finds the last node in the linked list and returns it.
  * Returns NULL if called with an empty head, although such a case is not used
- * in the main function addNode.
+ * in the main function add_node.
  */
-
-User *getLastNode(User *headNode){
-	if ( headNode == NULL ){
-		return headNode;
+User* get_last_node(User *head) {
+	if (head == NULL) {
+		return head;
 	}
-	User *currentNode = headNode;
-	while ( currentNode != NULL ){
-		if ( currentNode -> next == NULL ){
-			return currentNode;
+	User *current = head;
+	while (current != NULL) {
+		if (current->next == NULL) {
+			return current;
 		}
-		currentNode = ( currentNode ) -> next;
+		current = (current)->next;
 	}
 	return NULL;
 }
 
+void print_scoreboard(User *head) {
+        fprintf(stdout, "\n");
+        fprintf(stdout, "---- SCORE BOARD ---- \n");
+	if (head -> next != NULL) {
+		User *current = head -> next;
+		while (current != NULL) {
+			printf("\n");
+			printf("Player name: %s \n", current->name);
+			printf("High score: %d \n", current->max_score);
+			printf("Games played: %d \n", current->total_games);
+			printf("Total score: %d \n", current->total_score);
+			printf("\n");
+			printf("--------------------- \n");
 
-// Iterates through list printing each node
-
-void printScoreboard(User *headNode){
-    fprintf( stdout, "\n" );
-    fprintf( stdout, "---- SCORE BOARD ---- \n" );
-	if ( headNode -> next != NULL ){
-		User *currentNode = headNode -> next;
-		while ( currentNode != NULL ){
-			printf( "\n" );
-			printf( "Player name: %s \n", currentNode -> name );
-			printf( "High score: %d \n", currentNode -> maxScore );
-			printf( "Games played: %d \n", currentNode -> totalGames );
-			printf( "Total score: %d \n", currentNode -> totalScore );
-			printf( "\n--------------------- \n" );
-
-			if ( currentNode -> next == NULL ){
+			if (current->next == NULL) {
 				break;
 			}
-			currentNode = ( currentNode ) -> next;
+			current = (current)->next;
 		}
 	}
 }
 
-
-// Adds a new node to the end of the list
-
-void addNode(User *headNode, char *name, int maxScore){
-	User *userPtr;
-	if ( headNode != NULL ){
-	    userPtr = malloc( sizeof( struct user ) );
+void add_node(User *head, char* name, int max_score) {
+	User *user_ptr;
+	if (head != NULL) {
+		 user_ptr = malloc(sizeof(struct user));
 	}
-	strcpy( userPtr -> name, name );
-	userPtr -> maxScore = maxScore;
-	userPtr -> totalGames = 1;
-	userPtr -> totalScore = maxScore;
-	userPtr -> next = NULL;
+	strcpy(user_ptr->name, name);
+	user_ptr->max_score = max_score;
+	user_ptr->total_games = 1;
+	user_ptr->total_score = max_score;
+	user_ptr->next = NULL;
 
-	if ( headNode == NULL ){
-		headNode = userPtr;
+	if (head == NULL) {
+		head = user_ptr;
 	}
 	else {
-		getLastNode( headNode ) -> next = userPtr;
+		get_last_node(head)->next = user_ptr;
 	}
 }
 
-
-/*
- * Updates both the currentScore and the totalScore of a Node
- */
-
-void updateNodeWithName ( User *headNode, char *name, int currentScore ){
-	if ( userIsInList( headNode, name ) == 1 ){
-		User *userPtr = findUserWithName(headNode, name);
-		if ( currentScore > (userPtr -> maxScore) ){
-			userPtr -> maxScore = currentScore;
+void update_node_with_name(User *head, char* name, int current_score) {
+	if (user_is_in_list(head, name) == 1) {
+		User *user_ptr = find_user_with_name(head, name);
+		if (current_score > (user_ptr->max_score)) {
+			user_ptr->max_score = current_score;
 		}
-		userPtr -> totalGames += 1;
-		userPtr -> totalScore += currentScore;
+		user_ptr->total_games += 1;
+		user_ptr->total_score += current_score;
 	}
 }
-/***************************************************************************************/

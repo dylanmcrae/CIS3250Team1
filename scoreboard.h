@@ -5,37 +5,30 @@
 
 typedef struct user{
 	char name[100];
-	int maxScore;
-	int totalGames;
-	int totalScore;
+	int max_score;
+	int total_games;
+	int total_score;
 	struct user *next;
 
 } User;
 
-// Find specific nodes
-User *findUserWithName(User *head, char *nameToFind);
-int userIsInList(User *head, char *nameToFind);
-User *getUserAtIndex(User *head, int index);
+User* find_user_with_name(User* head, char* name_to_find);
 
+User* get_user_at_index(User* head, int index);
 
+int get_index_of_user_with_name(User* head, char* name_to_find);
 
-// Get locations
-int getIndexOfUserWithName(User *head, char *nameToFind);
-int getLength(User *head);
-User *getLastNode(User *head);
+int get_length(User* head);
 
+User* get_last_node(User *head);
 
+void print_scoreboard(User *head);
 
-// Prints
-void printScoreboard(User *head);
+void free_all(User* head);
+void add_node(User *head, char* name, int max_score);
 
+int user_is_in_list(User* head, char* name_to_find);
 
-
-// Node interactions
-void addNode(User *head, char *name, int maxScore);
-void freeAll(User *head);
-void updateNodeWithName(User *head, char *name, int currentScore);
-
-
+void update_node_with_name(User *head, char* name, int current_score);
 
 #endif
