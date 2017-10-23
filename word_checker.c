@@ -164,7 +164,8 @@ int testWordChecker(char **boggle, char *word){
         for(n = 0; n < 4; n++){
             if(m == 0 && n == 0){
                 visited[m][n] = 1;
-            }else{
+            }
+	    else{
                 visited[m][n] = 0;
             }
         }
@@ -208,7 +209,8 @@ int hcWordChecker(char boggle[][4], char *word){
         for(n = 0; n < 4; n++){
             if(m == 0 && n == 0){
                 visited[m][n] = 1;
-            }else{
+            }
+	    else{
                 visited[m][n] = 0;
             }
         }
@@ -255,7 +257,8 @@ int hcAbidesRules(int i, int j, char *word, char boggle[][4], int subLen, int **
         subLen++;
         subLen++;
         currentLetter = word[subLen];
-    }else{
+    }
+    else{
         findLetter = word[subLen + 1];
     }
 
@@ -276,8 +279,9 @@ int hcAbidesRules(int i, int j, char *word, char boggle[][4], int subLen, int **
 
             if(result){
                 return 1;
-            }else{
-                --subLen;
+            }
+	    else{
+            --subLen;
             }
 
         }
