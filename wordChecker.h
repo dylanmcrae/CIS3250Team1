@@ -9,10 +9,10 @@
 #include <stdlib.h>
 
 
-char getLetter( int val1, int val2, struct rolledDice **gameBoard );
+char getLetter( int i, int j, struct rolledDice **gameBoard );
 
 
-int abidesRules( int val1, int val2, char *word, struct rolledDice** gameBoard, int subLen, int **visited );
+int abidesRules( int i, int j, char *word, struct rolledDice** gameBoard, int subLen, int **visited );
 
 
 int wordChecker( struct rolledDice **gameBoard, char *word );
@@ -20,10 +20,10 @@ int wordChecker( struct rolledDice **gameBoard, char *word );
 
 
 
-char testGetLetter( int val1, int val2, char **boggle );
+char testGetLetter( int i, int j, char **boggle );
 
 
-int testAbidesRules( int val1, int val2, char *word, char **gameBoard, int subLen, int **visited );
+int testAbidesRules( int i, int j, char *word, char **gameBoard, int subLen, int **visited );
 
 
 int testWordChecker( char **boggle, char *word );
@@ -31,10 +31,10 @@ int testWordChecker( char **boggle, char *word );
 
 
 
-char hcGetLetter( int val1, int val2, char boggle[][4] );
+char hcGetLetter( int i, int j, char boggle[][4] );
 
 
-int hcAbidesRules( int val1, int val2, char *word, char boggle[][4], int subLen, int **visited );
+int hcAbidesRules( int i, int j, char *word, char boggle[][4], int subLen, int **visited );
 
 
 int hcWordChecker( char boggle[][4], char *word );
