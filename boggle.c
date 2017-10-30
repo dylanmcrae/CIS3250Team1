@@ -3,150 +3,162 @@
 #include <ctype.h>
 #include "dictionary.h"
 #include "board_generator.h"
-#include "wordChecker.h"
+#include "word_checker.h"
 #include "scoreboard.h"
 
 #define MAXLINE 100
 
-/**
- - set up board,
- - set up dictionary,
- **/
 
-void incrementTotalScore(int *user_score, char *word);
+//set up board, set up dictionary
+void incrementTotalScore(int *userScore, char *word);
 
-void free_and_reset_board(struct rolled_dice** boardGame,
-        struct preset_dice* input_array_of_dice) {
 
-    for (int i = 0; i < 4; i++) {
-        free(boardGame[i]);
-    }
-    roll_dice(boardGame, input_array_of_dice);
+void freeAndResetBoard(struct rolledDice **gameBoard, struct presetDice *inputArrayOfDice){
+
+	for(int i = 0; i < 4; i++){
+		free(gameBoard[i]);
+	}
+
+	rollDice(gameBoard, inputArrayOfDice);
 }
 
 
-char *convert_to_upper(char **upper){
-    char *upper_deref = *upper;
+char *convertToUpper(char **upper){
+	char *upperDeref = *upper;
 
-    for(int i = 0; upper_deref[i]; i++){
-      upper_deref[i] = toupper(upper_deref[i]);
-    }
-    return upper_deref;
-}
+	for(int i = 0; upperDeref[i]; i++){
+	  upperDeref[i] = toupper(upperDeref[i]);
+	}
 
-char *convert_to_upper2(char (*upper)[]){
-    char *upper_deref = *upper;
-
-    for(int i = 0; upper_deref[i]; i++){
-      upper_deref[i] = toupper(upper_deref[i]);
-    }
-    return upper_deref;
-}
-
-void incrementTotalScore(int *user_score, char *word){
-    int word_len = strlen(word);
-    fprintf(stdout, "word_len: %d\n",word_len );
-    if(word_len == 3 || word_len == 4){
-        *user_score+=1;
-    }else if(word_len == 5){
-        *user_score+=2;
-    }else if(word_len == 6){
-        *user_score+=3;
-    }else if(word_len == 7){
-        *user_score+=5;
-    }else if(word_len >= 8){
-        *user_score+=11;
-    }
+	return upperDeref;
 }
 
 
-int main (int argc, char ** argv) {
-    int i, points = 0, testPoints = 0, invalid_size = 0;
-    char inputWord[100];
-    char originalInputWord[100];
+char *convertToUpper2(char (*upper)[]){
+	char *upperDeref = *upper;
 
-    FILE *input_FP;
-    char line [MAXLINE];
-    char *fileName;
-    
-    const char * dict_name = "assets/EnglishWords.txt";
-    DNode* checkEnglish;
-    DNode* checkSubmitted;
-    static DNode* englishDictionary [BIGHASHSIZE];
-    static DNode* guessedWords [SMALLHASHSIZE];
+	for(int i = 0; upperDeref[i]; i++){
+	  upperDeref[i] = toupper(upperDeref[i]);
+	}
 
-    int currentScore = 0;
-    int turnCount = 0;
-
-    User* head = NULL;
-    head = (User*)malloc(sizeof(User));
-
-    PresetDice global_dice[16];
-    RolledDice *boardGame[4];
-
-    FILE *outputFP;
-    char read_line[MAXLINE]; 
+	return upperDeref;
+}
 
 
-    if(!(input_FP = fopen ( dict_name , "r" )))    {
-        fprintf(stderr,"Could not open file \"%s\" for reading dictionary words\n", dict_name);
+void incrementTotalScore(int *userScore, char *word){
+	int wordLen = strlen(word);
+	
+	fprintf(stdout, "wordLen: %d\n",wordLen);
+
+	if (wordLen == 3 || wordLen == 4){
+		*userScore += 1;
+	}
+	else if (wordLen == 5){
+		*userScore += 2;
+	}
+	else if (wordLen == 6){
+		*userScore += 3;
+	}
+	else if (wordLen == 7){
+		*userScore += 5;
+	}
+	else if (wordLen >= 8){
+		*userScore += 11;
+	}
+}
+
+
+int main(int argc, char **argv){
+	int i = 0;
+	int points = 0;
+	int testPoints = 0;
+	int invalidSize = 0;
+	char inputWord[100];
+	char originalInputWord[100];
+
+	FILE *inputFP;
+	char line [MAXLINE];
+	char *fileName;
+ 	
+ 	const char *dictName = "EnglishWords.txt";
+	DNode* checkEnglish;
+	DNode* checkSubmitted;
+	static DNode* englishDictionary [BIGHASHSIZE];
+	static DNode* guessedWords [SMALLHASHSIZE];
+
+	int currentScore = 0;
+	int turnCount = 0;
+
+	User *head = NULL;
+	head = (User*)malloc(sizeof(User));
+
+	PresetDice globalDice[16];
+	RolledDice *gameBoard[4];
+
+	FILE *output_FP;
+	char readLine[MAXLINE]; 
+
+
+	if (!(inputFP = fopen(dictName, "r"))){
+        fprintf(stderr,"Could not open file \"%s\" for reading dictionary words\n", dictName);
         return 1;
     }
 
-    while( fgets (line, MAXLINE, input_FP)!=NULL ) {
-        line[strcspn(line, "\r\n")] = '\0';  //trim new line characters
-        insert (englishDictionary, BIGHASHSIZE, convert_to_upper2(&line));
-    }   
-    fclose (input_FP);
+	while(fgets(line, MAXLINE, inputFP)!=NULL){
+		//trim new line characters
+		line[strcspn(line, "\r\n")] = '\0';  
+		insert(englishDictionary, BIGHASHSIZE, convertToUpper2(&line));
+	}	
+	fclose(inputFP);
 
 
-    if (argc == 1){
-        fprintf(stdout, "playing in normal mode\n\n");
+	if (argc == 1){
+		fprintf(stdout, "Playing in Normal Mode\n\n");
 
-        system("clear");
+		system("clear");
 
-        initialize_preset_dice(global_dice);
+		initializePresetDice(globalDice);
 
-        roll_dice(boardGame, global_dice);
+		rollDice(gameBoard, globalDice);
 
-        while (turnCount >= 0) {
-            strcpy(originalInputWord, inputWord);
+		while(turnCount >= 0){
+			strcpy(originalInputWord, inputWord);
 
-            convert_to_upper2(&inputWord);
+			convertToUpper2(&inputWord);
 
-            User *thisUser;
-            char input_name[100];
+			User *thisUser;
+			char inputName[100];
 
-            if (strcmp(originalInputWord, "q") == 0) {
-                // "q" is the input, print scoreboard and exit game
-                print_scoreboard(head);
-                break;
-            }
-            // "n" is the input, adds user to/changes user in linked list and
-            // resets game
-            if (strcmp(originalInputWord, "n") == 0) {
+			if (strcmp(originalInputWord, "q") == 0){
+				// "q" is the input, print scoreboard and exit game
+				printScoreboard(head);
+				break;
+			}
+			// "n" is the input, adds user to/changes user in linked list and
+			// resets game
+			if (strcmp(originalInputWord, "n") == 0){
 
-                print_scoreboard(head);
-                fprintf(stdout, "Your current score: %d \n", currentScore);
-                fprintf(stdout, "What is your name? \n");
-                scanf("%s", input_name);
+				printScoreboard(head);
+				fprintf(stdout, "Your current score: %d \n", currentScore);
+				fprintf(stdout, "What is your name? \n");
+				scanf("%s", inputName);
 
-                if (user_is_in_list(head, input_name) == 0){
-                    add_node(head, input_name, currentScore);
-                }
-                else {
-                    update_node_with_name(head, input_name, currentScore);
-                }
+				if (userIsInList(head, inputName) == 0){
+					addNode(head, inputName, currentScore);
+				}
+				else{
+					updateNodeWithName(head, inputName, currentScore);
+				}
 
-                currentScore = 0;
+				currentScore = 0;
 
-                strcpy(inputWord, "");
+				strcpy(inputWord, "");
 
-                free_and_reset_board(boardGame, global_dice);
-                turnCount = 0;
-                system("clear");
-                continue;
-            }
+				freeAndResetBoard(gameBoard, globalDice);
+				turnCount = 0;
+				system("clear");
+				continue;
+			}
 
             /***************************************************************************************
             *    Jacob Parr
