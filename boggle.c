@@ -1,3 +1,6 @@
+/*
+*Kevin Liu 0972359
+*/
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
