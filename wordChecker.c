@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "word_checker.h"
+#include "wordChecker.h"
 #include <ctype.h>
 
 /**************************************************************************************************
