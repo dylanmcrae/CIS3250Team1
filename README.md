@@ -17,7 +17,9 @@ functionality keywords:
 q - quit
 n - resets the game (new game) -> asks you for name and saves your score to leaderboard under a username
 
-Running the program: 
+********************************
+Compilation
+********************************
 using created makefile 
 type make
 and enter ./program
