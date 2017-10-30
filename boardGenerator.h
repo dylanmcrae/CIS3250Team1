@@ -31,26 +31,26 @@ typedef struct rolledDice {
 
 
 // Initializes the dice in the list of pre-set dice. Call once at program start.
-void initializePresetDice(struct presetDice* inputArrayOfDice);
+void initializePresetDice(struct presetDice *inputArrayOfDice);
 
 
 // Rolls the dice to be used at the start of each game. Puts the rolled dice in
 // game_dice. Does not shuffle the dice. Helper function.
-void rollButNotShuffleDice(struct rolledDice* gameDice,
+void rollButNotShuffleDice(struct rolledDice *gameDice,
 		struct presetDice* inputArrayOfDice);
 
 
 // Shuffles an array of rolled dice. Helper function.
-void shuffleRolledDicePositions(struct rolledDice* gameDice);
+void shuffleRolledDicePositions(struct rolledDice *gameDice);
 
 
 // Prints a visualization of the input array of rolled_dice.
-void printGameBoard(struct rolledDice** gameBoard);
+void printGameBoard(struct rolledDice **gameBoard);
 
 
 // Rolls the dice to be used at the start of the game and shuffles them, putting
 // the dice into the 2D array game_dice. Call once at the start of every game.
-void rollDice(struct rolledDice** gameBoard,
+void rollDice(struct rolledDice **gameBoard,
 		struct presetDice* inputArrayOfDice);
 
 // Converts board from a string version to 2D array. Used in test mode

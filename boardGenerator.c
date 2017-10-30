@@ -11,7 +11,7 @@
 
 
 // Initializes the dice in the list of pre-set dice. Call once at program start.
-void initializePresetDice(struct presetDice* inputArrayOfDice) {
+void initializePresetDice(struct presetDice *inputArrayOfDice) {
     for (int die = 0; die < 16; die++) {
 		inputArrayOfDice[die].position = 0;
 	}
@@ -38,9 +38,7 @@ void initializePresetDice(struct presetDice* inputArrayOfDice) {
 
 // Rolls the dice to be used at the start of each game. Puts the rolled dice in
 // game_dice. Does not shuffle the dice. Helper function.
-void rollButNotShuffleDice(struct rolledDice* gameDice,
-		struct presetDice* inputArrayOfDice) {
-
+void rollButNotShuffleDice(struct rolledDice *gameDice, struct presetDice* inputArrayOfDice) {
 	srand(time(NULL));
 	for (int die = 0; die < 16; die++) {
 		int randomNum = rand()%6;
@@ -50,8 +48,7 @@ void rollButNotShuffleDice(struct rolledDice* gameDice,
 
 
 // Shuffles an array of rolled dice. Helper function.
-void shuffleRolledDicePositions(struct rolledDice* gameDice) {
-
+void shuffleRolledDicePositions(struct rolledDice *gameDice) {
 	struct rolledDice NewGameDice[16];
 
 	int randomNum = 0;
@@ -75,9 +72,7 @@ void shuffleRolledDicePositions(struct rolledDice* gameDice) {
 
 // Rolls the dice to be used at the start of the game and shuffles them, putting
 // the dice into the 2D array game_dice. Call once at the start of every game.
-void rollDice(struct rolledDice** gameBoard,
-		struct presetDice* inputArrayOfDice){
-
+void rollDice(struct rolledDice **gameBoard, struct presetDice* inputArrayOfDice){
 	gameBoard[0] = malloc(sizeof(struct rolled_dice) * 4);
 	gameBoard[1] = malloc(sizeof(struct rolled_dice) * 4);
 	gameBoard[2] = malloc(sizeof(struct rolled_dice) * 4);
@@ -98,8 +93,7 @@ void rollDice(struct rolledDice** gameBoard,
 
 
 // Prints a visualization of the input array of rolled_dice.
-void printGameBoard(struct rolledDice** gameBoard) {
-
+void printGameBoard(struct rolledDice **gameBoard) {
 	for (int die = 0; die < 4; die++) {
 		for (int die2 = 0; die2 < 4; die2++) {
 			if (die2 != 3) {
@@ -115,7 +109,6 @@ void printGameBoard(struct rolledDice** gameBoard) {
 
 // Prints a visualization of the current boggle game board 
 void printHCBoard(char boggle[][4]) {
-
 	for (int die = 0; die < 4; die++) {
 			for (int die2 = 0; die2 < 4; die2++) {
 				if (die2 != 3) {
