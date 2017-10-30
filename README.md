@@ -6,6 +6,18 @@ October 2017      Boggle Game
 ********************************
 Program Description
 ********************************
-This program simulates a boggle game. Using a dictionary provided by the user, or the english dictionary provided in the program, a board 
-is produced containing words from the dictionary jumbled with random letters. The idea of the game is to find all the words hidden in the
-board. The user is prompted to enter words that they find in the board and they recieve points as they go along.
+Boggle Program:
+
+When run, plays a single player game of Boggle in which your are attempting to find the most amount of words possible.
+
+Program Functionality: 
+when program is run displays a grid of letters on the console and player begins to play game. The game consists of the player looking for words within the grid. when words are entered, words are compared to words listed in englishWords text file. If the text file contains the user entered word and the word has not previously been entered, than the score is adjusted and incremented by one. Once no more words can be found or player wants to restart player enters n, or q to quit.  
+
+functionality keywords:
+q - quit
+n - resets the game (new game) -> asks you for name and saves your score to leaderboard under a username
+
+Running the program: 
+using created makefile 
+type make
+and enter ./program
