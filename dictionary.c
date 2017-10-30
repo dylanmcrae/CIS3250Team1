@@ -1,67 +1,94 @@
+/*
+* Dylan McRae
+* 0964089
+* Looks up if given word is allowed
+*/
+#include <stdio.h>
 #include <string.h>
 #include "dictionary.h"
-#include <stdio.h>
 
 
-//form hash value for string s
-//this produces a starting value in the dictionary array
-unsigned hash(const char *s) {
-	unsigned hashval;
-	for (hashval = 0; *s != '\0'; s++)
-		hashval = *s + 31 * hashval;
-	return hashval ;
+
+/* 
+* Form hash value for string "s"
+* This produces a starting value in the dictionary array
+*/
+unsigned hash(const char *s){
+	unsigned hashVal;
+	for( hashVal = 0; *s != '\0'; s++ ){
+		hashVal = *s + 31 * hashVal;
+	}
+	return hashVal ;
 }
 
-DNode * lookup (DNode ** dictionary, int hash_size, const char *key) {
-	DNode * np;
-	unsigned int hashval = hash(key);
-	for (np = dictionary [hashval % hash_size]; np !=NULL; np = np->next)
-		if (strcmp (key, np->key) == 0)
+/*
+*Looks up given word from user
+*/
+dNode *lookup(dNode ** dictionary, int hashSize, const char *key){
+	dNode *np;
+	unsigned int hashVal = hash(key);
+	for( np = dictionary [ hashVal % hashSize ]; np != NULL; np = np->next ){
+		if( strcmp(key, np->key) == 0 ){
 			return np; 
-	return NULL; //not found
+	}
+	return NULL; 
 }
 
-DNode * insert (DNode ** dictionary, int hash_size,  const char * key) {
-	unsigned int hashval;
-	DNode *np;
+/*
+* Inserts node if lookup is NULL
+*/
+dNode *insert(dNode **dictionary, int hashSize,  const char *key){
+	unsigned int hashVal;
+	dNode *np;
 
-	if ((np = lookup (dictionary, hash_size, key)) == NULL ) { //
-		np = (DNode *) malloc (sizeof (*np));
+	if((np = lookup(dictionary, hashSize, key)) == NULL ){ 
+		np = (dNode *) malloc(sizeof (*np));
 
-		if (np == NULL || (np->key = copystr (key)) == NULL)
+		if(np == NULL || (np->key = copystr (key)) == NULL){
 			return NULL;
+		}
+		hashVal = hash (key) % hashSize;
 
-		hashval = hash (key) % hash_size;
-
-		np->next = dictionary [hashval];
-		dictionary [hashval] = np;
+		np->next = dictionary [hashVal];
+		dictionary [hashVal] = np;
 	}
 	return np;
 }
 
-void free_dictionary (DNode ** dictionary, int hash_size) {
+/*
+*Frees node function
+*/
+void freeDictionary(dNode **dictionary, int hashSize){
 	int i;
-	for (i=0; i<hash_size; i++) { 
-		if (dictionary [i]!=NULL) { //if there is an entry at position i
-			DNode *head = dictionary[i]; 
-			DNode *current = head;
-			while (current != NULL) {
-				DNode * temp = current;
+	for( i = 0; i < hashSize; i++ ){ 
+		if( dictionary [i]!= NULL ){ 
+		// If there is an entry at position i
+			dNode *head = dictionary[i]; 
+			dNode *current = head;
+			while( current != NULL ){
+				dNode *temp = current;
 				current = current->next;
 				free (temp);
 			}
-			dictionary[i] = NULL;  //BUG fix
+			dictionary[i] = NULL;  
+			// BUG fix
 		}
 	}
 }
 
-char *copystr(const char *s) { /* make a duplicate of s */
+/*
+*String copy function
+*/
+char *copystr(const char *s){ 
+// make a duplicate of s
 	char *p;
 	int len = strlen(s);
 
-	p = (char *) malloc(len+1); /* +1 for ?\0? */
-	if (p != NULL)
+	p = (char *) malloc(len+1); 
+	// +1 for ?\0? 
+	if( p != NULL ){
 		strncpy(p, s, len);
+	}
 	p[len] = '\0';
 
 	return p;
