@@ -152,21 +152,21 @@ int test_abides_rules(int i, int j, char *word, char **game_board, int subLen, i
 ****************************************************************************************************/
 //Tests to see if there is a word in the space
 int testWordChecker(char **boggle, char *word){
-    int row, letter, col, m, n;
+    int letter;
     int **visited;
     visited = malloc(sizeof(int * ) * 4);
 
-    for(int j = 0; j < 4; j++){
-        visited[j] = malloc(sizeof(int) * 4);
+    for(int numRows = 0; numRows < 4; numRows++){
+        visited[numRows] = malloc(sizeof(int) * 4);
     }
 
-    for(m = 0; m < 4; m++){
-        for(n = 0; n < 4; n++){
-            if(m == 0 && n == 0){
-                visited[m][n] = 1;
+    for(int rowIndex = 0; rowIndex < 4; rowIndex++){
+        for(int colIndex = 0; colIndex < 4; colIndex++){
+            if(rowIndex == 0 && colIndex == 0){
+                visited[rowIndex][colIndex] = 1;
             }
-	    else{
-                visited[m][n] = 0;
+            else{
+                visited[rowIndex][colIndex] = 0;
             }
         }
     }
@@ -190,28 +190,25 @@ int testWordChecker(char **boggle, char *word){
     return 0;
 }
 
+
 //Tests to see if the word is in the space
 int hcWordChecker(char boggle[][4], char *word){
 
-    int row = 0; 
     int letter = 0;
-    int col = 0;
-    int m = 0;
-    int n = 0;
     int **visited;
     visited = malloc(sizeof(int * ) * 4);
 
-    for(int j = 0; j < 4; j++){
-        visited[j] = malloc(sizeof(int) * 4);
+    for(int numCols = 0; numCols < 4; numCols++){
+        visited[numCols] = malloc(sizeof(int) * 4);
     }
 
-    for(m = 0; m < 4; m++){
-        for(n = 0; n < 4; n++){
-            if(m == 0 && n == 0){
-                visited[m][n] = 1;
+    for(int rowIndex = 0; rowIndex < 4; rowIndex++){
+        for(int colIndex = 0; colIndex < 4; colIndex++){
+            if(rowIndex == 0 && colIndex == 0){
+                visited[rowIndex][colIndex] = 1;
             }
-	    else{
-                visited[m][n] = 0;
+            else{
+                visited[rowIndex][colIndex] = 0;
             }
         }
     }
@@ -236,9 +233,10 @@ int hcWordChecker(char boggle[][4], char *word){
 
 }
 
+
 //Checks to see if the word abides by the rules 
 int hcAbidesRules(int i, int j, char *word, char boggle[][4], int subLen, int **visited){
-    int adjCell;
+ 
     char currentLetter = word[subLen];
     int ans = (subLen == (strlen(word)-1));
     
@@ -264,7 +262,7 @@ int hcAbidesRules(int i, int j, char *word, char boggle[][4], int subLen, int **
 
     int result = 0;
 
-    for(adjCell = 0; adjCell < 8; adjCell++){
+    for(int adjCell = 0; adjCell < 8; adjCell++){
        
         int newXValue = i + allXValues[adjCell];
         int newYValue = j + allYValues[adjCell];
@@ -280,8 +278,8 @@ int hcAbidesRules(int i, int j, char *word, char boggle[][4], int subLen, int **
             if(result){
                 return 1;
             }
-	    else{
-            --subLen;
+            else{
+                --subLen;
             }
 
         }
@@ -290,6 +288,7 @@ int hcAbidesRules(int i, int j, char *word, char boggle[][4], int subLen, int **
 
     return 0;
 }
+
 
 //Returns a letter
 char hcGetLetter(int i, int j, char boggle[][4]){
