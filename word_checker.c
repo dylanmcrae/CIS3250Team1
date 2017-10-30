@@ -3,11 +3,11 @@
 #include "word_checker.h"
 #include <ctype.h>
 
-char get_letter(int i, int j, struct rolled_dice **game_board){
+char getLetter(int i, int j, struct rolled_dice **game_board){
     return game_board[i][j].character;
 }
 
-int abides_rules(int i, int j, char *word, struct rolled_dice** game_board, int subLen, int **visited){
+int abidesRules(int i, int j, char *word, struct rolled_dice** game_board, int subLen, int **visited){
 	int adjCell;
 	char currentLetter = word[subLen];
 	int ans = (subLen == (strlen(word)-1));
@@ -100,7 +100,7 @@ char testGetLetter(int i, int j, char **boggle){
 
 
 
-int test_abides_rules(int i, int j, char *word, char **game_board, int subLen, int **visited){
+int testAbidesRules(int i, int j, char *word, char **game_board, int subLen, int **visited){
 		int adjCell;
 	// use subLen as index to see what letter to find
 	char currentLetter = word[subLen];
