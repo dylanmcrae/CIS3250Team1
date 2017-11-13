@@ -29,7 +29,8 @@ dNode *lookup(dNode **dictionary, int hashSize, const char *key){
 	unsigned int hashVal = hash(key);
 	for(np = dictionary [hashVal % hashSize]; np != NULL; np = np->next){
 		if(strcmp(key, np->key) == 0){
-			return np; 
+			return np;
+		}
 	}
 	return NULL; 
 }
