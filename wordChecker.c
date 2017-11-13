@@ -112,7 +112,7 @@ int testAbidesRules(int val1, int val2, char *word, char **gameBoard, int subLen
 		    (newX < 4) && 
 		    (newY >= 0) && 
 		    (newY < 4)) && 
-			toupper(findLetter) == testGetLetter(newX, newY, gameBoard) && !visited[newX][newY]){
+		    toupper(findLetter) == testGetLetter(newX, newY, gameBoard) && !visited[newX][newY]){
 	     	    visited[newX][newY] = 1;
 			    ++subLen;
 			    result = testAbidesRules(newX, newY, word, gameBoard, subLen, visited);
@@ -121,7 +121,7 @@ int testAbidesRules(int val1, int val2, char *word, char **gameBoard, int subLen
 		    return 1;
 		}
 		else{
-			--subLen;
+		    --subLen;
 		}
 	}
 
@@ -213,7 +213,7 @@ int hcWordChecker(char boggle[][4], char *word){
     }
 
     return 0;
-
+}
 
 	// Right, digUpRight, up, digUpLeft, left, digDownLeft, down, digDownRight
 	int allX[] = {0, -1, -1, -1, 0, 1, 1, 1};
