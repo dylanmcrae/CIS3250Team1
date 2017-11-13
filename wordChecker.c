@@ -68,7 +68,7 @@ int wordChecker(struct rolledDice **gameBoard, char *word){
 	free(visited[3]);
 
 	return 0;
- 
+} 
  // Returns a letter
  char testGetLetter(int val1, int val2, char **boggle){
 	 return boggle[val1][val2];
@@ -83,7 +83,7 @@ int testAbidesRules(int val1, int val2, char *word, char **gameBoard, int subLen
 	int ans = (subLen == (strlen(word)-1));
 	if(subLen == (strlen(word)-1)){	
 		return 1;
-    }
+        }
 
 
 	int allX[] = {0, -1, -1, -1, 0, 1, 1, 1};
@@ -283,7 +283,7 @@ int hcAbidesRules(int val1, int val2, char *word, char boggle[][4], int subLen, 
             visited[newXValue][newYValue] = 1;
             ++subLen;
             result = hcAbidesRules(newXValue, newYValue, word, boggle, subLen, visited);
-
+	
             if(result){
                 return 1;
             }
@@ -305,5 +305,5 @@ char hcGetLetter(int val1, int val2, char boggle[][4]){
     return boggle[val1][val2];
 
 }
-}
+
 
