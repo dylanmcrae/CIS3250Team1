@@ -49,7 +49,7 @@ void rollButNotShuffleDice(struct rolledDice *gameDice, struct presetDice* input
 
 // Shuffles an array of rolled dice. Helper function.
 void shuffleRolledDicePositions(struct rolledDice *gameDice) {
-	struct rolledDice NewGameDice[16];
+	struct rolledDice newGameDice[16];
 
 	int randomNum = 0;
 	for (int die = 0; die < 16; die++) {
