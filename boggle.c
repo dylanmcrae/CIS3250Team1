@@ -170,7 +170,7 @@ int main(int argc, char **argv){
             ***************************************************************************************/
 
 
-            printBoardGame(boardGame);
+            printBoardGame(gameBoard);
 
             checkEnglish = lookup (englishDictionary, BIGHASHSIZE, inputWord);          
             
@@ -181,7 +181,7 @@ int main(int argc, char **argv){
 
                     if ( strlen(inputWord) > 2 ){
 
-                        if ( wordChecker (boardGame, inputWord) ){
+                        if ( wordChecker (gameBoard, inputWord) ){
                             insert ( guessedWords, SMALLHASHSIZE, inputWord );
                             incrementTotalScore( &currentScore, inputWord );
                             fprintf ( stdout, "Correct! You current score is now: %d \n", currentScore );
@@ -212,7 +212,7 @@ int main(int argc, char **argv){
 
         }
         for ( int i = 0; i < 4; i++ ) {
-            free(boardGame[i]);
+            free(gameBoard[i]);
         }
         freeAll(head);
 
