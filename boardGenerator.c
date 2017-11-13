@@ -56,16 +56,16 @@ void shuffleRolledDicePositions(struct rolledDice *gameDice) {
 
 		srand(time(NULL));
 		
-		while (game_dice[randomNum].position == -1) {
+		while (gameDice[randomNum].position == -1) {
 			randomNum = (int) (rand()%16);
 		}
-		newGameDice[die] = game_dice[randomNum];
+		newGameDice[die] = gameDice[randomNum];
 		gameDice[randomNum].position = -1;
 	}
 
 	for (int die = 0; die < 16; die++) {
-		game_dice[die] = new_game_dice[die];
-		game_dice[die].position = die+1;
+		gameDice[die] = newGameDice[die];
+		gameDice[die].position = die+1;
 	}
 }
 
