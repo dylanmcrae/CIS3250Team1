@@ -304,4 +304,4 @@ char hcGetLetter(int val1, int val2, char boggle[][4]){
 
     return boggle[val1][val2];
 
-
+}
