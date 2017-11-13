@@ -73,10 +73,10 @@ void shuffleRolledDicePositions(struct rolledDice *gameDice) {
 // Rolls the dice to be used at the start of the game and shuffles them, putting
 // the dice into the 2D array game_dice. Call once at the start of every game.
 void rollDice(struct rolledDice **gameBoard, struct presetDice* inputArrayOfDice){
-	gameBoard[0] = malloc(sizeof(struct rolled_dice) * 4);
-	gameBoard[1] = malloc(sizeof(struct rolled_dice) * 4);
-	gameBoard[2] = malloc(sizeof(struct rolled_dice) * 4);
-	gameBoard[3] = malloc(sizeof(struct rolled_dice) * 4);
+	gameBoard[0] = malloc(sizeof(struct rolledDice) * 4);
+	gameBoard[1] = malloc(sizeof(struct rolledDice) * 4);
+	gameBoard[2] = malloc(sizeof(struct rolledDice) * 4);
+	gameBoard[3] = malloc(sizeof(struct rolledDice) * 4);
 
 	// temporary array of structs to contain adjusted 1D array of dice.
 	struct rolledDice adjustedDiceArray[16];
