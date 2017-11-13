@@ -5,8 +5,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "dictionary.h"
-#include "board_generator.h"
-#include "word_checker.h"
+#include "wordChecker.h"
 #include "scoreboard.h"
 
 #define MAXLINE 100
