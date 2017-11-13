@@ -26,7 +26,7 @@ int abidesRules(int val1, int val2, char *word, struct rolledDice **gameBoard, i
 	if(subLen == (strlen(word)-1)){
 	   return 1;
 	}
- 
+} 
  // Checks if the word is valid
 int wordChecker(struct rolledDice **gameBoard, char *word){
 	
