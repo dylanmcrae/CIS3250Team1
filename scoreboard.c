@@ -169,9 +169,9 @@ void printScoreboard(User *headNode) {
 			printf("Total score: %d \n", currentNode -> totalScore);
 			printf("\n--------------------- \n");
 
-			/*if ( currentNode -> next == NULL ) {
+			if ( currentNode -> next == NULL ) {
 				break;
-			}*/
+			}
 			currentNode = (currentNode) -> next;
 		}
 	}
