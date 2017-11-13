@@ -68,7 +68,7 @@ int wordChecker(struct rolledDice **gameBoard, char *word){
 	free(visited[3]);
 
 	return 0;
-
+ }
  // Returns a letter
  char testGetLetter(int val1, int val2, char **boggle){
 	 return boggle[val1][val2];
