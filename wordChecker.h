@@ -5,7 +5,7 @@
 ***************************************************************************************/
 
 #include <string.h>
-#include "board_generator.h"
+#include "boardGenerator.h"
 #include <stdlib.h>
 
 
