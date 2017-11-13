@@ -83,10 +83,10 @@ int main(int argc, char **argv){
 	char *fileName;
  	
  	const char *dictName = "EnglishWords.txt";
-	DNode* checkEnglish;
-	DNode* checkSubmitted;
-	static DNode* englishDictionary [BIGHASHSIZE];
-	static DNode* guessedWords [SMALLHASHSIZE];
+	dNode* checkEnglish;
+	dNode* checkSubmitted;
+	static dNode* englishDictionary [BIGHASHSIZE];
+	static dNode* guessedWords [SMALLHASHSIZE];
 
 	int currentScore = 0;
 	int turnCount = 0;
@@ -94,8 +94,8 @@ int main(int argc, char **argv){
 	User *head = NULL;
 	head = (User*)malloc(sizeof(User));
 
-	PresetDice globalDice[16];
-	RolledDice *gameBoard[4];
+	presetDice globalDice[16];
+	rolledDice *gameBoard[4];
 
 	FILE *output_FP;
 	char readLine[MAXLINE]; 
@@ -229,7 +229,7 @@ int main(int argc, char **argv){
         char *testWords;
         char **testBoard;
         int fileLineCounter = 1;
-        DNode* testResult;
+        dNode* testResult;
         int begin = 0;
 
 
