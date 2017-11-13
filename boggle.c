@@ -97,7 +97,7 @@ int main(int argc, char **argv){
 	presetDice globalDice[16];
 	rolledDice *gameBoard[4];
 
-	FILE *output_FP;
+	FILE *outputFP;
 	char readLine[MAXLINE]; 
 
 
